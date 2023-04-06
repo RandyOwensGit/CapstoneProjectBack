@@ -17,4 +17,39 @@ public class User {
     @Column
     private String name;
 
+    // no-arg constructor
+    public User() {
+
+    }
+
+    // default constructor
+    public User(String name) {
+        this.name = name;
+    }
+
+
+    /* define getters & setters */
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    /* end getters & setters */
+
+
+    /* define toString */
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                '}';
+    }
+    /* end toString */
+
 }

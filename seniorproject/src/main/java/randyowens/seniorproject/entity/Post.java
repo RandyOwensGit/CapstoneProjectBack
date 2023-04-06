@@ -2,6 +2,8 @@ package randyowens.seniorproject.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 // Represents User adding read books
 
 @Entity
@@ -18,11 +20,11 @@ public class Post {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User user;
+    private User userId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id")
-    private Book book;
+    private Book bookId;
 
     @Column(name = "date_started")
     private java.util.Date dateStarted;
@@ -31,5 +33,66 @@ public class Post {
     private java.util.Date dateEnded;
 
 
+    // no arg constructor
+    public Post() {
+
+    }
+
+    // default constructor
+    public Post(User userId, Book bookId, Date dateStarted, Date dateEnded) {
+        this.userId = userId;
+        this.bookId = bookId;
+        this.dateStarted = dateStarted;
+        this.dateEnded = dateEnded;
+    }
+
+
+    /* define getters & setters */
+    public int getPostId() {
+        return postId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
+    public Book getBookId() {
+        return bookId;
+    }
+    public void setBookId(Book bookId) {
+        this.bookId = bookId;
+    }
+
+    public Date getDateStarted() {
+        return dateStarted;
+    }
+    public void setDateStarted(Date dateStarted) {
+        this.dateStarted = dateStarted;
+    }
+
+    public Date getDateEnded() {
+        return dateEnded;
+    }
+    public void setDateEnded(Date dateEnded) {
+        this.dateEnded = dateEnded;
+    }
+    /* end getters & setters */
+
+
+    /* define toString */
+    @Override
+    public String toString() {
+        return "Post{" +
+                "postId=" + postId +
+                ", userId=" + userId +
+                ", bookId=" + bookId +
+                ", dateStarted=" + dateStarted +
+                ", dateEnded=" + dateEnded +
+                '}';
+    }
+    /* end toString */
 
 }
