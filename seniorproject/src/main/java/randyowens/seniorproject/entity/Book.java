@@ -30,4 +30,7 @@ public class Book {
     @Lob
     @Column(name = "picture", length = 1000)
     private byte[] imageData;
+
+
+
 }

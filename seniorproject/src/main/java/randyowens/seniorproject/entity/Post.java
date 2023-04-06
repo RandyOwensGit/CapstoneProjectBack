@@ -30,4 +30,6 @@ public class Post {
     @Column(name = "date_ended")
     private java.util.Date dateEnded;
 
+
+
 }
