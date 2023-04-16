@@ -9,16 +9,12 @@ import java.util.Arrays;
 public class Book {
 
     // define fields
-    // Book: book_id, user_id, title, description, pages, picture
+    // Book: book_id, title, description, pages, picture
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "book_id")
     private int bookId;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User userId;
 
     @Column(name = "title")
     private String title;
@@ -39,8 +35,7 @@ public class Book {
     }
 
     // full arg constructor
-    public Book(User userId, String title, String description, int pages, byte[] imageData) {
-        this.userId = userId;
+    public Book(String title, String description, int pages, byte[] imageData) {
         this.title = title;
         this.description = description;
         this.pages = pages;
@@ -50,13 +45,6 @@ public class Book {
     /* define getters & setters */
     public int getBookId() {
         return bookId;
-    }
-
-    public User getUser() {
-        return userId;
-    }
-    public void setUser(User user) {
-        this.userId = user;
     }
 
     public String getTitle() {
@@ -93,7 +81,6 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "bookId=" + bookId +
-                ", userId=" + userId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", pages=" + pages +

@@ -1,17 +1,18 @@
 package randyowens.seniorproject.entity;
 
 import jakarta.persistence.*;
+import randyowens.seniorproject.utils.BookStateEnum;
 
 import java.util.Date;
 
 // Represents User adding read books
 
 @Entity
-@Table(name = "posts")
-public class Post {
+@Table(name = "user_posts")
+public class UserPost {
 
     // define fields
-    // Posts: post_id, user_id, book_id, date_started, date_ended
+    // Posts: post_id, user_id, book_id, state(enum), date_started, date_ended
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +27,10 @@ public class Post {
     @JoinColumn(name = "book_id")
     private Book bookId;
 
+    @Column(name = "state")
+    @Enumerated(EnumType.ORDINAL)
+    private BookStateEnum bookState;
+
     @Column(name = "date_started")
     private java.util.Date dateStarted;
 
@@ -34,12 +39,12 @@ public class Post {
 
 
     // no arg constructor
-    public Post() {
+    public UserPost() {
 
     }
 
     // default constructor
-    public Post(User userId, Book bookId, Date dateStarted, Date dateEnded) {
+    public UserPost(User userId, Book bookId, Date dateStarted, Date dateEnded) {
         this.userId = userId;
         this.bookId = bookId;
         this.dateStarted = dateStarted;
