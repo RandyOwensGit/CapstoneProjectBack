@@ -10,7 +10,7 @@ import java.util.Date;
 public class Test {
 
     // Table for Testing Live Project
-    // test_table: test_id, name, title, state(enum), date
+    // test_table: test_id, test_name, title, read_state(enum), created_date
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,10 @@ public class Test {
     @Column( name = "title" )
     private String title;
 
+    @Column( name = "read_state" )
+    @Enumerated( EnumType.ORDINAL )
+    private ReadStateEnum readState;
+
     @Column( name = "created_date" )
     private java.util.Date createdDate;
 
@@ -32,9 +36,10 @@ public class Test {
     }
 
     // Arg constructor
-    public Test(String name, String title, Date createdDate) {
+    public Test(String name, String title, ReadStateEnum readState, Date createdDate) {
         this.name = name;
         this.title = title;
+        this.readState = readState;
         this.createdDate = createdDate;
     }
 
@@ -58,6 +63,13 @@ public class Test {
         this.title = title;
     }
 
+    public ReadStateEnum getReadState() {
+        return readState;
+    }
+    public void setReadState(ReadStateEnum readState) {
+        this.readState = readState;
+    }
+
     public Date getDateStarted() {
         return createdDate;
     }
@@ -72,6 +84,7 @@ public class Test {
                 "testId=" + testId +
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
+                ", readState='" + readState + '\'' +
                 ", dateStarted=" + createdDate +
                 '}';
     }
