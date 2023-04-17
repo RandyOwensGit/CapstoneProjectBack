@@ -1,5 +1,5 @@
 package randyowens.seniorproject.utils;
 
-public enum BookStateEnum {
+public enum ReadStateEnum {
     not_started, reading, finished;
 }

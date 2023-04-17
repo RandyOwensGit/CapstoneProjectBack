@@ -1,40 +1,41 @@
 package randyowens.seniorproject.entity;
 
 import jakarta.persistence.*;
-import randyowens.seniorproject.utils.BookStateEnum;
+import randyowens.seniorproject.utils.ReadStateEnum;
 
 import java.util.Date;
 
 // Represents User adding read books
 
 @Entity
-@Table(name = "user_posts")
+@Table( name = "user_posts" )
 public class UserPost {
 
     // define fields
-    // Posts: post_id, user_id, book_id, state(enum), date_started, date_ended
+    // Posts: post_id, user_id, book_id, read_state(enum), date_started, date_ended
+    // enum values not_reading, reading, finished
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
+    @Column( name = "post_id" )
     private int postId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn( name = "user_id" )
     private User userId;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "book_id")
+    @JoinColumn( name = "book_id" )
     private Book bookId;
 
-    @Column(name = "state")
+    @Column( name = "read_state" )
     @Enumerated(EnumType.ORDINAL)
-    private BookStateEnum bookState;
+    private ReadStateEnum readState;
 
-    @Column(name = "date_started")
+    @Column( name = "date_started" )
     private java.util.Date dateStarted;
 
-    @Column(name = "date_ended")
+    @Column( name = "date_ended" )
     private java.util.Date dateEnded;
 
 
@@ -44,9 +45,10 @@ public class UserPost {
     }
 
     // default constructor
-    public UserPost(User userId, Book bookId, Date dateStarted, Date dateEnded) {
+    public UserPost(User userId, Book bookId, ReadStateEnum readState, Date dateStarted, Date dateEnded) {
         this.userId = userId;
         this.bookId = bookId;
+        this.readState = readState;
         this.dateStarted = dateStarted;
         this.dateEnded = dateEnded;
     }
@@ -71,6 +73,9 @@ public class UserPost {
         this.bookId = bookId;
     }
 
+    public ReadStateEnum getReadState() { return readState; }
+    public void setReadState(ReadStateEnum readState) { this.readState = readState; }
+
     public Date getDateStarted() {
         return dateStarted;
     }
@@ -94,6 +99,7 @@ public class UserPost {
                 "postId=" + postId +
                 ", userId=" + userId +
                 ", bookId=" + bookId +
+                ", readState=" + readState +
                 ", dateStarted=" + dateStarted +
                 ", dateEnded=" + dateEnded +
                 '}';

@@ -13,20 +13,20 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id")
+    @Column( name = "book_id" )
     private int bookId;
 
-    @Column(name = "title")
+    @Column( name = "title" )
     private String title;
 
-    @Column(name = "description")
+    @Column( name = "description" )
     private String description;
 
-    @Column(name = "pages")
+    @Column( name = "pages" )
     private int pages;
 
     @Lob
-    @Column(name = "picture", length = 1000)
+    @Column( name = "picture", length = 1000 )
     private byte[] imageData;
 
     // require no-arg constructor
