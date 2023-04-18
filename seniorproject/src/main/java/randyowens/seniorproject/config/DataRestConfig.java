@@ -21,11 +21,29 @@ public class DataRestConfig implements RepositoryRestConfigurer {
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 
         // CURRENTLY -- ALL HTTP METHODS ALLOWED ON ANY ENTITY
+        HttpMethod[] unsupportedMethods = {
+                HttpMethod.DELETE,
+                HttpMethod.PUT,
+                HttpMethod.PATCH
+        };
+
+        // gather endpoints from Test
+        config.exposeIdsFor(Test.class);
+
+        // disable unsupportedMethods for HTTP
+        disableHttpMethods(Test.class, config, unsupportedMethods);
 
         // CORS mapping configuration
         cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[0]);
-        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[1]);
         cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[2]);
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[1]);
 
+    }
+
+    private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] unsupportedMethods) {
+        // disable HTTP methods for Tests class
+        config.getExposureConfiguration()
+                .forDomainType(theClass)
+                .withItemExposure((metadata, httpMethods) -> httpMethods.disable(unsupportedMethods));
     }
 }
