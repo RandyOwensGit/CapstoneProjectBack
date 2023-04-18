@@ -34,10 +34,13 @@ public class DataRestConfig implements RepositoryRestConfigurer {
         disableHttpMethods(Test.class, config, unsupportedMethods);
 
         // CORS mapping configuration
-        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[0]);
-        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[2]);
-        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[1]);
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins("*").allowedMethods("*");
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[2]).allowedMethods("*");
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[1]).allowedMethods("*");
 
+        System.out.println("\n\n\n");
+        System.out.println(config.getBasePath());
+        System.out.println("\n\n\n");
     }
 
     private void disableHttpMethods(Class theClass, RepositoryRestConfiguration config, HttpMethod[] unsupportedMethods) {
