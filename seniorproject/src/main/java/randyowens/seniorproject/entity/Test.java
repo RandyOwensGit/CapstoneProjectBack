@@ -1,6 +1,7 @@
 package randyowens.seniorproject.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import randyowens.seniorproject.utils.ReadStateEnum;
 
 import java.util.Date;
@@ -24,10 +25,11 @@ public class Test {
     private String title;
 
     @Column( name = "read_state" )
-    @Enumerated( EnumType.ORDINAL )
+    @Enumerated( EnumType.STRING )
     private ReadStateEnum readState;
 
     @Column( name = "created_date" )
+    @CreationTimestamp
     private java.util.Date createdDate;
 
     // Required no arg constructor
