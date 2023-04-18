@@ -14,8 +14,8 @@ import randyowens.seniorproject.entity.Test;
 @Configuration
 public class DataRestConfig implements RepositoryRestConfigurer {
 
-    // Needs to be updated when project is hosted on Render.com
-    private String allowed = "http://localhost:3000";
+    // frontend links to be allowed
+    private String[] allowed = {"https://senior-project-front.onrender.com/", "https://randyowens.me/", "https://www.randyowens.me/"};
 
     // Configure -- accessing API sites need the cors to be configured
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
@@ -23,7 +23,9 @@ public class DataRestConfig implements RepositoryRestConfigurer {
         // CURRENTLY -- ALL HTTP METHODS ALLOWED ON ANY ENTITY
 
         // CORS mapping configuration
-        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed);
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[0]);
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[1]);
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowed[2]);
 
     }
 }
