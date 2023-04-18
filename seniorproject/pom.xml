@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>randyowens</groupId>
 	<artifactId>seniorproject</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>seniorproject</name>
 	<description>Senior Project for WilmU</description>
 	<properties>
