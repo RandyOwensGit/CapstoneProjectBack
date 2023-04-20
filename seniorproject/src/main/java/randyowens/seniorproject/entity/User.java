@@ -16,9 +16,6 @@ public class User {
     @Column( name = "user_id" )
     private int userId;
 
-    @Column( name = "name" )
-    private String name;
-
     @Column( name = "username" )
     private String username;
 
@@ -37,8 +34,7 @@ public class User {
     }
 
     // default constructor
-    public User(String name, String username, String password, String email, Date dateCreated) {
-        this.name = name;
+    public User(String username, String password, String email, Date dateCreated) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -49,13 +45,6 @@ public class User {
     /* define getters & setters */
     public int getUserId() {
         return userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getUsername() {
@@ -93,7 +82,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
-                ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +

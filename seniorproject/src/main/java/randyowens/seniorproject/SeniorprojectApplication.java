@@ -14,7 +14,7 @@ public class SeniorprojectApplication {
 		SpringApplication.run(SeniorprojectApplication.class, args);
 	}
 
-	@GetMapping("helloworld")
+	@GetMapping("/helloworld")
 	public String getCountUsers() {
 		return "Hello Render with Spring Boot";
 	}
