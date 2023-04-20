@@ -24,10 +24,6 @@ public class UserPost {
     @JoinColumn( name = "user_id" )
     private User userId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn( name = "book_id" )
-    private Book bookId;
-
     @Column( name = "read_state" )
     @Enumerated(EnumType.ORDINAL)
     private ReadStateEnum readState;
@@ -45,9 +41,8 @@ public class UserPost {
     }
 
     // default constructor
-    public UserPost(User userId, Book bookId, ReadStateEnum readState, Date dateStarted, Date dateEnded) {
+    public UserPost(User userId, ReadStateEnum readState, Date dateStarted, Date dateEnded) {
         this.userId = userId;
-        this.bookId = bookId;
         this.readState = readState;
         this.dateStarted = dateStarted;
         this.dateEnded = dateEnded;
@@ -64,13 +59,6 @@ public class UserPost {
     }
     public void setUserId(User userId) {
         this.userId = userId;
-    }
-
-    public Book getBookId() {
-        return bookId;
-    }
-    public void setBookId(Book bookId) {
-        this.bookId = bookId;
     }
 
     public ReadStateEnum getReadState() { return readState; }
@@ -98,7 +86,6 @@ public class UserPost {
         return "Post{" +
                 "postId=" + postId +
                 ", userId=" + userId +
-                ", bookId=" + bookId +
                 ", readState=" + readState +
                 ", dateStarted=" + dateStarted +
                 ", dateEnded=" + dateEnded +
