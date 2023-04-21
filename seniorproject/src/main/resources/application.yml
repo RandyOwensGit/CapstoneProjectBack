@@ -20,16 +20,6 @@ spring:
   data:
     rest:
       base-path: /api
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 895369180669-428hds3bpk7muithstgfdu9spqq0gd75.apps.googleusercontent.com
-            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
-            scope:
-              - email
-              - profile
 # This Datasource is for production build online
 '#spring':
   datasource:
@@ -38,5 +28,5 @@ docker-secret:
   bind-path: /run/secrets
 senior-project:
   app:
-    jwtSecret: secretKey
+    jwtSecret: ${JWT_SECRET}
     jwtExpirationMs: 86400000
