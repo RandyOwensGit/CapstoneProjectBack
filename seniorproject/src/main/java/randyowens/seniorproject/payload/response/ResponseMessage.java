@@ -1,5 +1,8 @@
 package randyowens.seniorproject.payload.response;
 
+/**
+ * HTTP response message
+ */
 public class ResponseMessage {
 
     private String message;

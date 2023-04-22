@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import randyowens.seniorproject.security.jwt.AuthTokenFilter;
+import randyowens.seniorproject.security.jwt.JwtTokenFilter;
 import randyowens.seniorproject.security.jwt.JwtAuthenticationEntryPoint;
 import randyowens.seniorproject.security.services.UserDetailsServiceImpl;
 
@@ -36,8 +36,8 @@ public class WebSecurityConfig {
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
+    public JwtTokenFilter authenticationJwtTokenFilter() {
+        return new JwtTokenFilter();
     }
 
     // Connect User service with encoder to authenticate username/password
@@ -68,7 +68,7 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests().requestMatchers("/api/auth/**").permitAll()
+                .authorizeHttpRequests().requestMatchers("/api/user/**").permitAll()
                 .requestMatchers("/api/tests/**").permitAll()
                 .anyRequest().authenticated();
 

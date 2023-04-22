@@ -23,7 +23,7 @@ import java.io.IOException;
  * @parseJwt
  */
 
-public class AuthTokenFilter extends OncePerRequestFilter {
+public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -44,22 +44,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         try {
             //
-            String jwt = parseJwt(request);
+            String jwtToken = parseJwt(request);
 
             // check for username and retrieve it
-            if(jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            if((jwtToken != null) && (jwtUtils.validateJwtToken(jwtToken))) {
+
+                String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
 
                 // Assign  user details to gather the information from database
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken authenticationToken =
+                UsernamePasswordAuthenticationToken userJwtToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
                 // build a token for this user's current session
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                userJwtToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // apply the user token to create a session
-                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                // apply the user token to create 'session'
+                SecurityContextHolder.getContext().setAuthentication(userJwtToken);
             }
 
         } catch (Exception e) {

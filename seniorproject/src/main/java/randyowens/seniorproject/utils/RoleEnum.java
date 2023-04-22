@@ -1,4 +1,4 @@
-package randyowens.seniorproject.entity;
+package randyowens.seniorproject.utils;
 
 /**
  * Roles for granted authorities
@@ -6,7 +6,7 @@ package randyowens.seniorproject.entity;
  */
 
 // ROLE_SUPPORT is an example of ROLE functionality with Spring Security - No Current Implementation
-public enum ERole {
+public enum RoleEnum {
     ROLE_USER,
     ROLE_SUPPORT,
 }

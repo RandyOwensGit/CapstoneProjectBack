@@ -1,7 +1,15 @@
 package randyowens.seniorproject.payload.response;
 
+import randyowens.seniorproject.entity.Read;
+
+import java.util.Date;
 import java.util.List;
 
+/**
+ * Body of HTTP Response
+ * 'Array' of values with JSON
+ * Everything to be returned to JWT request gets included here
+ */
 public class JwtResponse {
 
     private String token;
@@ -9,13 +17,25 @@ public class JwtResponse {
     private Long id;
     private String username;
     private String email;
+    private Date dateCreated;
+    private List<Read> reads;
     private List<String> roles;
 
-    public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
+    public JwtResponse(
+            String accessToken,
+            Long id,
+            String username,
+            String email,
+            Date dateCreated,
+            List<Read> reads,
+            List<String> roles
+    ) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
         this.email = email;
+        this.dateCreated = dateCreated;
+        this.reads = reads;
         this.roles = roles;
     }
 
@@ -52,6 +72,20 @@ public class JwtResponse {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public List<Read> getReads() {
+        return this.reads;
+    }
+    public void setReads(List<Read> reads) {
+        this.reads = reads;
     }
 
     public List<String> getRoles() {

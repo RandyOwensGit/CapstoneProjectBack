@@ -5,7 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import randyowens.seniorproject.entity.Read;
-import randyowens.seniorproject.entity.User;
+import randyowens.seniorproject.entity.UserAccount;
 
 import java.util.Collection;
 import java.util.Date;
@@ -38,8 +38,15 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> grantedAuthorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password, Date dateCreated, List<Read> reads,
-                           Collection<? extends GrantedAuthority> grantedAuthorities) {
+    public UserDetailsImpl(
+            Long id,
+            String username,
+            String email,
+            String password,
+            Date dateCreated,
+            List<Read> reads,
+            Collection<? extends GrantedAuthority> grantedAuthorities
+    ) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -49,7 +56,7 @@ public class UserDetailsImpl implements UserDetails {
         this.grantedAuthorities = grantedAuthorities;
     }
 
-    public static UserDetailsImpl build(User user) {
+    public static UserDetailsImpl build(UserAccount user) {
         // create List of GrantedAuthority for each user roles
         List<GrantedAuthority> grantedAuthorityList = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
@@ -60,7 +67,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getDateCreated(),
+                user.getDate(),
                 user.getReads(),
                 grantedAuthorityList
         );

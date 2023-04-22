@@ -2,6 +2,7 @@ package randyowens.seniorproject.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.Type;
 import randyowens.seniorproject.utils.ReadStateEnum;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table( name = "read")
+@Table( name = "reads")
 public class Read {
 
     // define fields
@@ -34,9 +35,11 @@ public class Read {
     private String googleBookId;
 
     @Column( name = "read_state" )
-    @Enumerated(EnumType.ORDINAL)
-    @NotBlank
+    @Enumerated( EnumType.STRING )
     private ReadStateEnum readState;
+
+    @Column( name = "pages_read" )
+    private int pagesRead;
 
     @Column( name = "date_started" )
     private java.util.Date dateStarted;
@@ -45,9 +48,8 @@ public class Read {
     private java.util.Date dateEnded;
 
     @ManyToOne
-    @JoinColumn( name = "user_id", nullable = false )
-    User user;
-
+    @JoinColumn( name = "user_id" )
+    UserAccount userId;
 
     // no arg constructor
     public Read() {
@@ -55,12 +57,13 @@ public class Read {
     }
 
     // default constructor
-    public Read(String googleBookId, ReadStateEnum readState, Date dateStarted, Date dateEnded, User user) {
+    public Read(String googleBookId, ReadStateEnum readState, Date dateStarted, Date dateEnded, UserAccount user, int pagesRead) {
         this.googleBookId = googleBookId;
         this.readState = readState;
         this.dateStarted = dateStarted;
         this.dateEnded = dateEnded;
-        this.user = user;
+        this.userId = user;
+        this.pagesRead = pagesRead;
     }
 
 
@@ -74,6 +77,11 @@ public class Read {
         return googleBookId;
     }
     public void setGoogleBookId(String googleBookId) { this.googleBookId = googleBookId; }
+
+    public int getPagesRead() {
+        return pagesRead;
+    }
+    public void setPagesRead(int pagesRead) { this.pagesRead = pagesRead; }
 
     public ReadStateEnum getReadState() { return readState; }
     public void setReadState(ReadStateEnum readState) { this.readState = readState; }
@@ -92,8 +100,8 @@ public class Read {
         this.dateEnded = dateEnded;
     }
 
-    public User getUser() { return this.user; }
-    public void setUser(User user) { this.user = user; }
+    public UserAccount getUser() { return this.userId; }
+    public void setUser(UserAccount user) { this.userId = user; }
     /* end getters & setters */
 
     /* define toString */
@@ -106,7 +114,7 @@ public class Read {
                 ", readState=" + readState +
                 ", dateStarted=" + dateStarted +
                 ", dateEnded=" + dateEnded +
-                ", user=" + user +
+                ", user=" + userId +
                 '}';
     }
     /* end toString */

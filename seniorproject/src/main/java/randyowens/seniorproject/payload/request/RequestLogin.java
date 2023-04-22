@@ -2,6 +2,9 @@ package randyowens.seniorproject.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * Entity mapping required for signing up
+ */
 public class RequestLogin {
 
     @NotBlank

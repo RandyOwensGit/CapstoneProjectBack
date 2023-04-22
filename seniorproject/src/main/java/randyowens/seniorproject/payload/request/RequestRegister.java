@@ -6,10 +6,13 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
-public class RequestSignup {
+/**
+ * Entity mapping required for signing up
+ */
+public class RequestRegister {
 
     @NotBlank
-    @Size(min = 3, max = 20)
+    @Size(min = 5, max = 20)
     private String username;
 
     @NotBlank
@@ -20,7 +23,7 @@ public class RequestSignup {
     private Set<String> role;
 
     @NotBlank
-    @Size(min = 6, max = 40)
+    @Size(min = 5, max = 20)
     private String password;
 
     public String getUsername() {

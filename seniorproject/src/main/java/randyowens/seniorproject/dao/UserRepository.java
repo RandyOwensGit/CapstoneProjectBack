@@ -2,22 +2,29 @@ package randyowens.seniorproject.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import randyowens.seniorproject.entity.User;
+import randyowens.seniorproject.entity.UserAccount;
 
 import java.util.Optional;
 
 /**
- * Methods to run on DAO User
+ * Access User DAO
+ * @findByUsername
+ * @existsByEmail
+ * @existsByUsername
  */
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<UserAccount, Integer> {
 
     // Link to JpaRepository methods included with spring data rest
     // https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html
 
-
+    // DAO for User with username
     Optional<Object> findByUsername(String username);
 
+    // Check if a User exists with particular email
+    Boolean existsByEmail(String email);
 
+    // Check if user exists with a username
+    boolean existsByUsername(String username);
 }

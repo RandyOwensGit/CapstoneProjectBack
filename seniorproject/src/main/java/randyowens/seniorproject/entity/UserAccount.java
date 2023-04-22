@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -24,11 +27,11 @@ import java.util.Set;
  */
 
 @Entity
-@Table( name="user",
+@Table( name="user_account",
         uniqueConstraints = {
             @UniqueConstraint( columnNames = "email")
         })
-public class User {
+public class UserAccount {
 
     // define fields
     // user: user_id, username, password, email, date_created, reads, roles
@@ -40,46 +43,46 @@ public class User {
 
     @Column( name = "username" )
     @NotBlank
-    @Size( min = 5, max = 20)
+    @Size( min = 5, max = 50)
     private String username;
 
     @Column( name = "password" )
     @NotBlank
-    @Size( min = 5, max = 20)
+    @Size( max = 120 )
     private String password;
 
-    @Column( name = "email" )
+    @Column( name = "email")
     @NotBlank
+    @Size( max = 100)
     @Email
     private String email;
 
-    @Column( name = "date_created" )
-    private java.util.Date dateCreated;
-
-    // List over Set for easy ordering ?
-    @OneToMany( mappedBy = "user" )
+    @OneToMany( targetEntity = Read.class, mappedBy = "", fetch = FetchType.LAZY )
+    @JoinColumn( name = "read_id" )
     private List<Read> reads;
 
     // user roles (only user role)
     // Set for no duplicates
     @ManyToMany( fetch = FetchType.LAZY )
-    @JoinTable( name="roles",
+    @JoinTable( name = "user_roles",
                 joinColumns = @JoinColumn( name = "user_id" ),
                 inverseJoinColumns = @JoinColumn( name = "role_id" ))
     private Set<Role> roles = new HashSet<>();
 
+    @Column( name = "date_created" )
+    @CreationTimestamp
+    private java.util.Date createdDate;
+
    // no-arg constructor
-    public User() {
+    public UserAccount() {
 
     }
 
     // default constructor
-    public User(String username, String password, String email, Date dateCreated, List<Read> reads) {
+    public UserAccount(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.dateCreated = dateCreated;
-        this.reads = reads;
     }
 
 
@@ -113,11 +116,8 @@ public class User {
         this.email = email;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
+    public Date getDate() {
+        return this.createdDate;
     }
 
     public List<Read> getReads() {
@@ -144,7 +144,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", dateCreated=" + dateCreated +
+                ", dateCreated=" + createdDate +
                 ", reads=" + reads +
                 '}';
     }

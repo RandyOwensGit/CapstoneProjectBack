@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import randyowens.seniorproject.dao.UserRepository;
-import randyowens.seniorproject.entity.User;
+import randyowens.seniorproject.entity.UserAccount;
 
 /**
  * Implement Spring Security UserDetailsService
@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = (User) userRepository.findByUsername(username)
+        UserAccount user = (UserAccount) userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
         System.out.println("\nInside UserDetailsServiceImpl userDetails(): " + UserDetailsImpl.build(user) + "\n");
