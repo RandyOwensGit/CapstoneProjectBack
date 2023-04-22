@@ -10,8 +10,6 @@ spring:
       hibernate:
         format_sql: true
   config:
-    # Comment out for production build
-    #import: env.properties
   datasource:
     url: 'jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}'
     username: '${DB_USERNAME}'
@@ -21,14 +19,6 @@ spring:
   data:
     rest:
       base-path: /api
-# This Datasource is for production build online
-#'spring':
-#  datasource:
-#    url: 'jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}'
-# This Datasource is for local build
-#'spring':
-#  datasource:
-#    url: 'jdbc:postgresql://${DB_HOST}.${DB_HOST_URL}:${DB_PORT}/${DB_NAME}'
 docker-secret:
   bind-path: /run/secrets
 senior-project:
