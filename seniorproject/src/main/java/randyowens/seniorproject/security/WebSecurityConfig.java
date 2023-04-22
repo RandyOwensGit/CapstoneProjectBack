@@ -13,12 +13,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import randyowens.seniorproject.security.jwt.AuthEntryPointJwt;
 import randyowens.seniorproject.security.jwt.AuthTokenFilter;
+import randyowens.seniorproject.security.jwt.JwtAuthenticationEntryPoint;
 import randyowens.seniorproject.security.services.UserDetailsServiceImpl;
 
 /**
  * Spring Security Configuration File
+ * Provides entry point for authentication and HTTP filtering
  */
 
 // with @EnableMethodSecurity over @EnableGlobalMethodSecurity
@@ -32,7 +33,7 @@ public class WebSecurityConfig {
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {

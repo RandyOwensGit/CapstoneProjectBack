@@ -4,16 +4,18 @@ import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import randyowens.seniorproject.entity.UserAuth;
+import randyowens.seniorproject.entity.Read;
+import randyowens.seniorproject.entity.User;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
  * Implement Spring Security UserDetails
- *
+ * Object to hold User
  */
 
 public class UserDetailsImpl implements UserDetails {
@@ -26,38 +28,42 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
+    private Date dateCreated;
+
+    private List<Read> reads;
+
     // avoid mapping to JSON content
     @JsonIgnore
     private String password;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> grantedAuthorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String email, String password, Date dateCreated, List<Read> reads,
+                           Collection<? extends GrantedAuthority> grantedAuthorities) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.authorities = authorities;
-
+        this.dateCreated = dateCreated;
+        this.reads = reads;
+        this.grantedAuthorities = grantedAuthorities;
     }
 
-    public static UserDetailsImpl build(UserAuth userAuth) {
-        List<GrantedAuthority> authorities = userAuth.getRoles().stream()
+    public static UserDetailsImpl build(User user) {
+        // create List of GrantedAuthority for each user roles
+        List<GrantedAuthority> grantedAuthorityList = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
         return new UserDetailsImpl(
-                userAuth.getId(),
-                userAuth.getUsername(),
-                userAuth.getEmail(),
-                userAuth.getPassword(),
-                authorities);
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+                user.getUserId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getDateCreated(),
+                user.getReads(),
+                grantedAuthorityList
+        );
     }
 
     public Long getId() {
@@ -66,6 +72,19 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public Date getDateCreated() {
+        return dateCreated;
+    }
+
+    public List<Read> getReads() {
+        return this.reads;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return grantedAuthorities;
     }
 
     @Override

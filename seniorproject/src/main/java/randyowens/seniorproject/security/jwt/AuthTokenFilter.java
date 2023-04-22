@@ -4,8 +4,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,9 +16,11 @@ import randyowens.seniorproject.security.services.UserDetailsServiceImpl;
 import java.io.IOException;
 
 /**
- * Extends OncePerRequestFilter
  * Filter that runs on every request
  * Validates the header token from front-end
+ * Extends OncePerRequestFilter
+ * @doFilterInternal
+ * @parseJwt
  */
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -31,21 +31,26 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
-
+    /**
+     *
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try {
-
-            // parse jwt header from http request
+            //
             String jwt = parseJwt(request);
 
             // check for username and retrieve it
             if(jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
 
-                // Assign our user details to gather the information from database
+                // Assign  user details to gather the information from database
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -58,18 +63,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             }
 
         } catch (Exception e) {
-            logger.error("User Authentication failed: " + e);
+            System.out.println("\nAuthentication Failed: " + e);
         }
 
         filterChain.doFilter(request, response);
 
     }
 
-    private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
+    /**
+     * Check there is a header with Bearer Token
+     * @param httpRequest
+     * @return JWT Token String
+     */
+    private String parseJwt(HttpServletRequest httpRequest) {
+        String readableHeader = httpRequest.getHeader("Authorization");
 
-        if(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7, headerAuth.length());
+        if(StringUtils.hasText(readableHeader) && readableHeader.startsWith("Bearer ")) {
+            return readableHeader.substring(7, readableHeader.length());
         }
 
         return null;

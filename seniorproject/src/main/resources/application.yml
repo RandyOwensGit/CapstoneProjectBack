@@ -29,4 +29,3 @@ docker-secret:
 senior-project:
   app:
     jwtSecret: ${JWT_SECRET}
-    jwtExpirationMs: 86400000

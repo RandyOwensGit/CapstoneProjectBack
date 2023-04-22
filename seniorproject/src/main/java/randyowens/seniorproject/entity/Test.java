@@ -6,6 +6,10 @@ import randyowens.seniorproject.utils.ReadStateEnum;
 
 import java.util.Date;
 
+/**
+ * Testing Entity for test_table
+ */
+
 @Entity
 @Table(name = "test_table")
 public class Test {

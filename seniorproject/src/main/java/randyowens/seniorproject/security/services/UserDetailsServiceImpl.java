@@ -6,29 +6,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import randyowens.seniorproject.dao.UserAuthRepository;
-import randyowens.seniorproject.entity.UserAuth;
-
-import java.io.Serial;
+import randyowens.seniorproject.dao.UserRepository;
+import randyowens.seniorproject.entity.User;
 
 /**
  * Implement Spring Security UserDetailsService
  * Retrieve full User information from repository
+ * @return user object
  */
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    UserAuthRepository userAuthRepository;
+    UserRepository userRepository;
 
+    // Get User Details from UserDetailsImpl
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserAuth userAuth = userAuthRepository.findByUsername(username)
+        User user = (User) userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
-        return UserDetailsImpl.build(userAuth);
+        System.out.println("\nInside UserDetailsServiceImpl userDetails(): " + UserDetailsImpl.build(user) + "\n");
+
+        return UserDetailsImpl.build(user);
     }
 
 }

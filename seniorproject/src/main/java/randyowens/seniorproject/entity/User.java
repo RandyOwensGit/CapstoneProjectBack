@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Fetch;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 // User Entity mapping
 // Bean Validation will create table
@@ -28,7 +31,7 @@ import java.util.List;
 public class User {
 
     // define fields
-    // user: user_id, username, password, email, date_created, reads
+    // user: user_id, username, password, email, date_created, reads, roles
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,17 +60,26 @@ public class User {
     @OneToMany( mappedBy = "user" )
     private List<Read> reads;
 
+    // user roles (only user role)
+    // Set for no duplicates
+    @ManyToMany( fetch = FetchType.LAZY )
+    @JoinTable( name="roles",
+                joinColumns = @JoinColumn( name = "user_id" ),
+                inverseJoinColumns = @JoinColumn( name = "role_id" ))
+    private Set<Role> roles = new HashSet<>();
+
    // no-arg constructor
     public User() {
 
     }
 
     // default constructor
-    public User(String username, String password, String email, Date dateCreated) {
+    public User(String username, String password, String email, Date dateCreated, List<Read> reads) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.dateCreated = dateCreated;
+        this.reads = reads;
     }
 
 
@@ -113,6 +125,13 @@ public class User {
     }
     public void setReads(List<Read> reads) {
         this.reads = reads;
+    }
+
+    public Set<Role> getRoles() {
+        return this.roles;
+    }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
     /* end getters & setters */
 
