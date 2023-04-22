@@ -61,8 +61,7 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // Filter options on HTTP request
-    // Easily allow different endpoints to have security
+    // Endpoints need to be allowed through the requestMatchers and endpoint location
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -70,6 +69,7 @@ public class WebSecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests().requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/test/**").permitAll()
+                .requestMatchers("/api/tests/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());
