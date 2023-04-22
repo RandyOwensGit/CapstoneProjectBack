@@ -1,8 +1,10 @@
 package randyowens.seniorproject.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import randyowens.seniorproject.entity.Read;
 
+@Repository
 public interface ReadRepository extends JpaRepository<Read, Integer> {
 
     // Link to JpaRepository methods included with spring data rest

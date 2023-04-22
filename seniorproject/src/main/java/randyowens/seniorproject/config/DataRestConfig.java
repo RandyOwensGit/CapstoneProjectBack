@@ -1,5 +1,6 @@
 package randyowens.seniorproject.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -11,7 +12,7 @@ import randyowens.seniorproject.entity.Test;
  * Configuration File for Data Rest framework
  */
 
-@Configuration
+@ConfigurationProperties
 public class DataRestConfig implements RepositoryRestConfigurer {
 
     // frontend links to be allowed

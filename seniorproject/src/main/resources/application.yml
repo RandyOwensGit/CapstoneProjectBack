@@ -23,4 +23,4 @@ docker-secret:
   bind-path: /run/secrets
 senior-project:
   app:
-    jwtSecret: ${JWT_SECRET}
+    jwtSecret: '${JWT_SECRET}'
