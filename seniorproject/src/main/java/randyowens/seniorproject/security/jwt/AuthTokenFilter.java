@@ -20,6 +20,7 @@ import java.io.IOException;
 /**
  * Extends OncePerRequestFilter
  * Filter that runs on every request
+ * Validates the header token from front-end
  */
 
 public class AuthTokenFilter extends OncePerRequestFilter {
