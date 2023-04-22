@@ -12,7 +12,7 @@ import randyowens.seniorproject.entity.Test;
  * Configuration File for Data Rest framework
  */
 
-@ConfigurationProperties
+@Configuration
 public class DataRestConfig implements RepositoryRestConfigurer {
 
     // frontend links to be allowed
