@@ -23,6 +23,7 @@ import randyowens.seniorproject.security.services.UserDetailsImpl;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -64,11 +65,13 @@ public class AuthController {
         // Map Request params to the RequestLogin Class Entity
 
         // validate username and password
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-        // store currently authenticated users
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Authentication authentication = null;
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        } catch(Exception e) {
+            System.out.println("Username not found for request. : " + e);
+        }
 
         // generate token for user login
         String jwt = jwtUtils.generateJwtToken(authentication);

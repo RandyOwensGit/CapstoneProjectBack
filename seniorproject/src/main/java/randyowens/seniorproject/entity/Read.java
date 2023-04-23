@@ -36,10 +36,15 @@ public class Read {
 
     @Column( name = "read_state" )
     @Enumerated( EnumType.STRING )
+    @NotBlank
     private ReadStateEnum readState;
 
     @Column( name = "pages_read" )
     private int pagesRead;
+
+    @Column( name = "total_pages")
+    @NotBlank
+    private int totalPages;
 
     @Column( name = "date_started" )
     private java.util.Date dateStarted;
@@ -48,6 +53,7 @@ public class Read {
     private java.util.Date dateEnded;
 
     @ManyToOne
+    @NotBlank
     @JoinColumn( name = "user_id" )
     UserAccount userId;
 
@@ -57,13 +63,14 @@ public class Read {
     }
 
     // default constructor
-    public Read(String googleBookId, ReadStateEnum readState, Date dateStarted, Date dateEnded, UserAccount user, int pagesRead) {
+    public Read(String googleBookId, ReadStateEnum readState, Date dateStarted, Date dateEnded, UserAccount user, int pagesRead, int totalPages) {
         this.googleBookId = googleBookId;
         this.readState = readState;
         this.dateStarted = dateStarted;
         this.dateEnded = dateEnded;
         this.userId = user;
         this.pagesRead = pagesRead;
+        this.totalPages = totalPages;
     }
 
 
@@ -82,6 +89,11 @@ public class Read {
         return pagesRead;
     }
     public void setPagesRead(int pagesRead) { this.pagesRead = pagesRead; }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+    public void setTotalPages(int totalPages) { this.totalPages = totalPages; }
 
     public ReadStateEnum getReadState() { return readState; }
     public void setReadState(ReadStateEnum readState) { this.readState = readState; }
