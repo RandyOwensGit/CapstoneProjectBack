@@ -55,7 +55,7 @@ public class Read {
     @ManyToOne
     @NotBlank
     @JoinColumn( name = "user_id" )
-    UserAccount userId;
+    private UserAccount userAccount;
 
     // no arg constructor
     public Read() {
@@ -63,12 +63,12 @@ public class Read {
     }
 
     // default constructor
-    public Read(String googleBookId, ReadStateEnum readState, Date dateStarted, Date dateEnded, UserAccount user, int pagesRead, int totalPages) {
+    public Read(String googleBookId, ReadStateEnum readState, Date dateStarted, Date dateEnded, UserAccount userId, int pagesRead, int totalPages) {
         this.googleBookId = googleBookId;
         this.readState = readState;
         this.dateStarted = dateStarted;
         this.dateEnded = dateEnded;
-        this.userId = user;
+        this.userAccount = userId;
         this.pagesRead = pagesRead;
         this.totalPages = totalPages;
     }
@@ -112,8 +112,8 @@ public class Read {
         this.dateEnded = dateEnded;
     }
 
-    public UserAccount getUser() { return this.userId; }
-    public void setUser(UserAccount user) { this.userId = user; }
+    public UserAccount getUser() { return this.userAccount; }
+    public void setUser(UserAccount user) { this.userAccount = user; }
     /* end getters & setters */
 
     /* define toString */
@@ -126,7 +126,6 @@ public class Read {
                 ", readState=" + readState +
                 ", dateStarted=" + dateStarted +
                 ", dateEnded=" + dateEnded +
-                ", user=" + userId +
                 '}';
     }
     /* end toString */

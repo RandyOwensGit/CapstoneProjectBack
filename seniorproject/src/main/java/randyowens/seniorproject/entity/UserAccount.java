@@ -57,8 +57,7 @@ public class UserAccount {
     @Email
     private String email;
 
-    @OneToMany( targetEntity = Read.class, mappedBy = "", fetch = FetchType.LAZY )
-    @JoinColumn( name = "read_id" )
+    @OneToMany( mappedBy = "userAccount", fetch = FetchType.LAZY )
     private List<Read> reads;
 
     // user roles (only user role)
