@@ -57,9 +57,6 @@ public class UserAccount {
     @Email
     private String email;
 
-    @OneToMany( mappedBy = "userAccount", fetch = FetchType.LAZY )
-    private List<Read> reads;
-
     // user roles (only user role)
     // Set for no duplicates
     @ManyToMany( fetch = FetchType.LAZY )
@@ -119,13 +116,6 @@ public class UserAccount {
         return this.createdDate;
     }
 
-    public List<Read> getReads() {
-        return reads;
-    }
-    public void setReads(List<Read> reads) {
-        this.reads = reads;
-    }
-
     public Set<Role> getRoles() {
         return this.roles;
     }
@@ -144,7 +134,6 @@ public class UserAccount {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", dateCreated=" + createdDate +
-                ", reads=" + reads +
                 '}';
     }
     /* end toString */

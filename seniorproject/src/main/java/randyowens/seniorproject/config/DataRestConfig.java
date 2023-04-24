@@ -6,6 +6,7 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import randyowens.seniorproject.entity.Read;
 import randyowens.seniorproject.entity.Test;
 
 /**
@@ -30,6 +31,7 @@ public class DataRestConfig implements RepositoryRestConfigurer {
 
         // gather endpoints from Test
         config.exposeIdsFor(Test.class);
+        config.exposeIdsFor(Read.class);
 
         // disable unsupportedMethods for HTTP
         disableHttpMethods(Test.class, config, unsupportedMethods);

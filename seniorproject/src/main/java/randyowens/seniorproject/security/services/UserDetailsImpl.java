@@ -44,7 +44,6 @@ public class UserDetailsImpl implements UserDetails {
             String email,
             String password,
             Date dateCreated,
-            List<Read> reads,
             Collection<? extends GrantedAuthority> grantedAuthorities
     ) {
         this.id = id;
@@ -68,7 +67,6 @@ public class UserDetailsImpl implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 user.getDate(),
-                user.getReads(),
                 grantedAuthorityList
         );
     }
