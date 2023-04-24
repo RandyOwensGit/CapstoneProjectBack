@@ -34,7 +34,7 @@ import java.util.Set;
 public class UserAccount {
 
     // define fields
-    // user: user_id, username, password, email, date_created, reads, roles
+    // user: user_id, username, password, email, date_created, roles
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,6 +8,10 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.util.Date;
 
+/**
+ * General class for determine date creations
+ */
+
 @MappedSuperclass
 public abstract class DateCreationEntity {
 

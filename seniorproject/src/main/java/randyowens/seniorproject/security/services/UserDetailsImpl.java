@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 /**
  * Implement Spring Security UserDetails
- * Object to hold User
+ * Object to map a User
  */
 
 public class UserDetailsImpl implements UserDetails {

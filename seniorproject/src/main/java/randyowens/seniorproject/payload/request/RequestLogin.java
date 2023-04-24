@@ -3,7 +3,7 @@ package randyowens.seniorproject.payload.request;
 import jakarta.validation.constraints.NotBlank;
 
 /**
- * Entity mapping required for signing up
+ * Entity mapping required for logging in
  */
 public class RequestLogin {
 

@@ -19,10 +19,10 @@ import randyowens.seniorproject.security.services.UserDetailsServiceImpl;
 
 /**
  * Spring Security Configuration File
- * Provides entry point for authentication and HTTP filtering
+ * Dependency Injection for Beans
+ * @Method
  */
-
-// with @EnableMethodSecurity over @EnableGlobalMethodSecurity
+// with @EnableMethodSecurity over @EnableGlobalMethodSecurity (Deprecated)
 // prePostEnabled is by default true
 @Configuration
 @EnableMethodSecurity
@@ -40,7 +40,10 @@ public class WebSecurityConfig {
         return new JwtTokenFilter();
     }
 
-    // Connect User service with encoder to authenticate username/password
+    /**
+     * Provides valid user details
+     * @return DaoAuthenticationProvider
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -56,13 +59,21 @@ public class WebSecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-    // Password Hashing
+    /**
+     * Encrypt Injector
+     * @return Valid PasswordEncoder Object
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // Endpoints need to be allowed through the requestMatchers and endpoint location
+    /**
+     * Security on Endpoints
+     * @param http
+     * @return HTTP Request
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()

@@ -1,7 +1,7 @@
 package randyowens.seniorproject.payload.response;
 
 /**
- * HTTP response message
+ * HTTP response message mapping
  */
 public class ResponseMessage {
 

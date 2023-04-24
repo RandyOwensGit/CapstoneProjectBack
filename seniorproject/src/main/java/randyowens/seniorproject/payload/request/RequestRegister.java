@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import java.util.Set;
 
 /**
- * Entity mapping required for signing up
+ * Entity mapping required for registering
  */
 public class RequestRegister {
 

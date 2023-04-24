@@ -32,7 +32,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private UserDetailsServiceImpl userDetailsService;
 
     /**
-     *
+     * Validate Request Token
      * @param request
      * @param response
      * @param filterChain
@@ -43,7 +43,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         try {
-            //
+            // compare token
             String jwtToken = parseJwt(request);
 
             // check for username and retrieve it
@@ -51,12 +51,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
                 String username = jwtUtils.getUserNameFromJwtToken(jwtToken);
 
-                // Assign  user details to gather the information from database
+                // Authenticate user with user details and validate token response
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken userJwtToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-                // build a token for this user's current session
+                // assign details to token
                 userJwtToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 // apply the user token to create 'session'
