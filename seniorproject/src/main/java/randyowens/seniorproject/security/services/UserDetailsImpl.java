@@ -30,8 +30,6 @@ public class UserDetailsImpl implements UserDetails {
 
     private Date dateCreated;
 
-    private List<Read> reads;
-
     // avoid mapping to JSON content
     @JsonIgnore
     private String password;
@@ -51,7 +49,6 @@ public class UserDetailsImpl implements UserDetails {
         this.email = email;
         this.password = password;
         this.dateCreated = dateCreated;
-        this.reads = reads;
         this.grantedAuthorities = grantedAuthorities;
     }
 
@@ -81,10 +78,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public Date getDateCreated() {
         return dateCreated;
-    }
-
-    public List<Read> getReads() {
-        return this.reads;
     }
 
     @Override

@@ -2,6 +2,7 @@ package randyowens.seniorproject.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import randyowens.seniorproject.entity.UserAccount;
 
 import java.util.Optional;
@@ -13,6 +14,7 @@ import java.util.Optional;
  * @existsByUsername
  */
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Repository
 public interface UserRepository extends JpaRepository<UserAccount, Integer> {
 

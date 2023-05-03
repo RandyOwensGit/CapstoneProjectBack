@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Fetch;
 import org.springframework.cglib.core.Local;
@@ -65,6 +66,10 @@ public class UserAccount {
                 inverseJoinColumns = @JoinColumn( name = "role_id" ))
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany( mappedBy = "user", cascade = CascadeType.ALL )
+    private Set<Read> reads = new HashSet<>();
+
     @Column( name = "date_created" )
     @CreationTimestamp
     private java.util.Date createdDate;
@@ -121,6 +126,13 @@ public class UserAccount {
     }
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Read> getReads() {
+        return this.reads;
+    }
+    public void setReads(Set<Read> reads) {
+        this.reads = reads;
     }
     /* end getters & setters */
 

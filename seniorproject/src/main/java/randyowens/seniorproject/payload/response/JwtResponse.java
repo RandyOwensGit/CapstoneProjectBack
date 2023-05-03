@@ -18,7 +18,6 @@ public class JwtResponse {
     private String username;
     private String email;
     private Date dateCreated;
-    private List<Read> reads;
     private List<String> roles;
 
     public JwtResponse(
@@ -27,7 +26,6 @@ public class JwtResponse {
             String username,
             String email,
             Date dateCreated,
-            List<Read> reads,
             List<String> roles
     ) {
         this.token = accessToken;
@@ -35,7 +33,6 @@ public class JwtResponse {
         this.username = username;
         this.email = email;
         this.dateCreated = dateCreated;
-        this.reads = reads;
         this.roles = roles;
     }
 
@@ -79,13 +76,6 @@ public class JwtResponse {
     }
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
-    }
-
-    public List<Read> getReads() {
-        return this.reads;
-    }
-    public void setReads(List<Read> reads) {
-        this.reads = reads;
     }
 
     public List<String> getRoles() {

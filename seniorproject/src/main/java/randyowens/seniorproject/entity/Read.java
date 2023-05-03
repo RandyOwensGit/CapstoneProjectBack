@@ -2,6 +2,7 @@ package randyowens.seniorproject.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import randyowens.seniorproject.utils.ReadStateEnum;
 
@@ -18,11 +19,11 @@ import java.util.Date;
  */
 
 @Entity
-@Table( name = "reads")
+@Table( name = "user_reads")
 public class Read {
 
     // define fields
-    // Reads: read_id, google_id, read_state, date_started, date_ended, user_id
+    // Reads: read_id, google_id, read_state, user_id, total_pages
     // enum values not_reading, reading, finished
 
     @Id
@@ -36,26 +37,15 @@ public class Read {
 
     @Column( name = "read_state" )
     @Enumerated( EnumType.STRING )
-    @NotBlank
     private ReadStateEnum readState;
 
-    @Column( name = "pages_read" )
-    private int pagesRead;
+    @ManyToOne( cascade = CascadeType.ALL )
+    @JoinColumn( name = "user_id", referencedColumnName = "user_id")
+    private UserAccount user;
 
     @Column( name = "total_pages")
-    @NotBlank
-    private int totalPages;
+    private Integer totalPages;
 
-    @Column( name = "date_started" )
-    private java.util.Date dateStarted;
-
-    @Column( name = "date_ended" )
-    private java.util.Date dateEnded;
-
-    @ManyToOne
-    @NotBlank
-    @JoinColumn( name = "user_id" )
-    private UserAccount userAccount;
 
     // no arg constructor
     public Read() {
@@ -63,13 +53,9 @@ public class Read {
     }
 
     // default constructor
-    public Read(String googleBookId, ReadStateEnum readState, Date dateStarted, Date dateEnded, UserAccount userId, int pagesRead, int totalPages) {
+    public Read(String googleBookId, ReadStateEnum readState, Integer totalPages) {
         this.googleBookId = googleBookId;
         this.readState = readState;
-        this.dateStarted = dateStarted;
-        this.dateEnded = dateEnded;
-        this.userAccount = userId;
-        this.pagesRead = pagesRead;
         this.totalPages = totalPages;
     }
 
@@ -85,47 +71,27 @@ public class Read {
     }
     public void setGoogleBookId(String googleBookId) { this.googleBookId = googleBookId; }
 
-    public int getPagesRead() {
-        return pagesRead;
-    }
-    public void setPagesRead(int pagesRead) { this.pagesRead = pagesRead; }
-
-    public int getTotalPages() {
+    public Integer getTotalPages() {
         return totalPages;
     }
-    public void setTotalPages(int totalPages) { this.totalPages = totalPages; }
+    public void setTotalPages(Integer totalPages) { this.totalPages = totalPages; }
 
     public ReadStateEnum getReadState() { return readState; }
     public void setReadState(ReadStateEnum readState) { this.readState = readState; }
 
-    public Date getDateStarted() {
-        return dateStarted;
-    }
-   public void setDateStarted(Date dateStarted) {
-        this.dateStarted = dateStarted;
-    }
-
-    public Date getDateEnded() {
-        return dateEnded;
-    }
-    public void setDateEnded(Date dateEnded) {
-        this.dateEnded = dateEnded;
-    }
-
-    public UserAccount getUser() { return this.userAccount; }
-    public void setUser(UserAccount user) { this.userAccount = user; }
+    public UserAccount getUser() { return this.user; }
+    public void setUser(UserAccount user) { this.user = user; }
     /* end getters & setters */
 
     /* define toString */
-
     @Override
     public String toString() {
         return "Read{" +
                 "readId=" + readId +
                 ", googleBookId='" + googleBookId + '\'' +
                 ", readState=" + readState +
-                ", dateStarted=" + dateStarted +
-                ", dateEnded=" + dateEnded +
+                ", userAccount=" + user +
+                ", totalPages=" + totalPages +
                 '}';
     }
     /* end toString */
